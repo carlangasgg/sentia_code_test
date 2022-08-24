@@ -1,0 +1,55 @@
+<div class="container py-3">
+	
+	<h1>Sentia Coding Test</h1>
+
+	<%= form_for @person, method: :patch, url: upload_file_path do |f| %>
+
+	  <% if @person.errors.any? %>
+	    <ul>
+	    <% @person.errors.full_messages.each do |message| %>
+	      <li><%= message %></li>
+	    <% end %>
+	    </ul>
+	  <% end %>
+
+	   <div class="form-group">
+	      <%= f.label :file, "Upload CSV File" %>
+	      <%= f.file_field :file, class: 'form-control-file', required: true %>
+	   </div>
+	   <%= f.button :submit %>
+	<% end %>
+
+	<table id="table_id" class="display">
+	    <thead>
+	        <tr>
+	            <th>Name</th>
+	            <th>Location</th>
+	            <th>Species</th>
+	            <th>Gender</th>
+	            <th>Affiliations</th>
+	            <th>Weapon</th>
+	            <th>Vehicle</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	    	<% @people.each do |person|%>
+	        <tr>
+	            <td><%= person.full_name%></td>
+	            <td><%= person.location.name%></td>
+	            <td><%= person.species%></td>
+	            <td><%= person.gender%></td>
+				<td><%= person.affiliation.name%></td>
+	            <td><%= person.weapon%></td>
+	            <td><%= person.vehicle%></td>
+	        </tr>
+	        <% end %>
+	    </tbody>
+	</table>
+</div>
+
+<script>
+
+	$(document).ready( function () {
+	    $('#table_id').DataTable();
+	} );
+</script>
